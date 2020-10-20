@@ -33,7 +33,7 @@ namespace PDFmerger
             button1.Enabled = false;
             string[] selectedPaths = new string[1];
             // ファイルを選択し、それをすべてDataGridViewに入れる
-            if (UIpg.openFileSelect(textBox1.Text, ref selectedPaths))
+            if (UIpg.openFileSelect(textBox1.Text, "PDFファイル(*.pdf)|*.pdf", ref selectedPaths))
             {
                 foreach (string selectedPath in selectedPaths)
                 {
@@ -73,7 +73,7 @@ namespace PDFmerger
         {
             button3.Enabled = false;
             string selectedPath = textBox1.Text;
-            if (UIpg.mergedFileSelect(textBox1.Text, ref selectedPath)) textBox1.Text = selectedPath;
+            if (UIpg.writeFileSelect(textBox1.Text, "PDFファイル(*.pdf)|*.pdf", ref selectedPath)) textBox1.Text = selectedPath;
             button3.Enabled = true;
         }
 
@@ -98,8 +98,8 @@ namespace PDFmerger
             // ドロップされたファイルをPDFファイルのみすべてDataGridViewに入れる
             foreach (string selectedPath in (string[])e.Data.GetData(DataFormats.FileDrop, false))
             {
-                if(Path.GetExtension(selectedPath) == ".pdf")
-                dataGridView1.Rows.Add(Path.GetFileName(selectedPath), selectedPath);
+                if (Path.GetExtension(selectedPath) == ".pdf")
+                    dataGridView1.Rows.Add(Path.GetFileName(selectedPath), selectedPath);
             }
         }
 
@@ -132,16 +132,16 @@ namespace PDFmerger
             button5.Enabled = false;
             List<DataGridViewRow> buffer = new List<DataGridViewRow>();
             // バッファに選択行を入れる + 一度削除
-            foreach(DataGridViewRow row in dataGridView1.SelectedRows)
+            foreach (DataGridViewRow row in dataGridView1.SelectedRows)
             {
                 buffer.Add(row);
                 dataGridView1.Rows.Remove(row);
             }
             // バッファは行番号昇順に並べなおす
             // SelectedRowsで並び順が行順と一致しないため
-            buffer.Sort((a, b)=>(int)(a.Cells[0].Value) - (int)(b.Cells[0].Value));
+            buffer.Sort((a, b) => (int)(a.Cells[0].Value) - (int)(b.Cells[0].Value));
             // バッファのデータを挿入していく
-            for(int i = 0;i < buffer.Count; i++)
+            for (int i = 0; i < buffer.Count; i++)
             {
                 dataGridView1.Rows.Insert(i, buffer[i]);
             }
@@ -158,7 +158,8 @@ namespace PDFmerger
         private void button6_Click(object sender, EventArgs e)
         {
             button6.Enabled = false;
-            if (0 < dataGridView1.Rows.Count) {
+            if (0 < dataGridView1.Rows.Count)
+            {
                 // 挿入index決定
                 int insIndexWk = dataGridView1.SelectedRows[0].Index - 1;
                 // ただし挿入indexは0未満にしない
@@ -231,12 +232,67 @@ namespace PDFmerger
         /// </summary>
         private void redimIndexNum()
         {
-            int num = 0;
+            int num = 1;
             foreach (DataGridViewRow row in dataGridView1.Rows)
             {
                 row.Cells[0].Value = num;
                 num++;
             }
+        }
+
+        /// <summary>
+        /// 結合設定読み込み
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void confReadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string selectedPath = "";
+            // 読み込む結合設定を選択
+            if (!UIpg.openFileSelect(textBox1.Text, "結合設定ファイル(*.dat)|*.dat", ref selectedPath)) return;
+            // 結合設定を読み込む
+            string[] readPaths = new string[1];
+            if (!IOpg.readDat(selectedPath, ref readPaths)) return;
+            // 一度datagridviewは削除
+            dataGridView1.Rows.Clear();
+            // datagridviewにデータ追加
+            foreach (string readPath in readPaths)
+            {
+                // データ追加時、IndexNumは0を仮置き
+                dataGridView1.Rows.Add(0, Path.GetFileName(readPath), readPath);
+            }
+            // IndexNum再採番
+            redimIndexNum();
+        }
+
+        /// <summary>
+        /// 結合設定書き込み
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void confWriteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string selectedPath = "";
+            if (!UIpg.writeFileSelect(textBox1.Text, "結合設定ファイル(*.dat)|*.dat", ref selectedPath)) return;
+            // 現在の登録中ファイル一覧を作成
+            List<string> files = new List<string>();
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                files.Add((string)row.Cells[2].Value);
+            }
+            // 保存処理
+            IOpg.writeDat(selectedPath, files.ToArray());
+        }
+
+        /// <summary>
+        /// dataGridViewソート後処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dataGridView1_Sorted(object sender, EventArgs e)
+        {
+            // IndexNum再採番
+            redimIndexNum();
         }
     }
 }

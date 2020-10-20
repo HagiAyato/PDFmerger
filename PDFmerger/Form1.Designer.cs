@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.IndexNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FilePath = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -39,10 +42,13 @@
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
-            this.IndexNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FilePath = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.ファイルToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.設定ファイルToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.設定ファイル読み込みToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.設定ファイル書き出しToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -50,7 +56,6 @@
             this.dataGridView1.AllowDrop = true;
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AllowUserToOrderColumns = true;
             this.dataGridView1.AllowUserToResizeRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -63,14 +68,37 @@
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(630, 251);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.Sorted += new System.EventHandler(this.dataGridView1_Sorted);
             this.dataGridView1.DragDrop += new System.Windows.Forms.DragEventHandler(this.dataGridView1_DragDrop);
             this.dataGridView1.DragEnter += new System.Windows.Forms.DragEventHandler(this.dataGridView1_DragEnter);
+            // 
+            // IndexNum
+            // 
+            this.IndexNum.HeaderText = "№";
+            this.IndexNum.MinimumWidth = 30;
+            this.IndexNum.Name = "IndexNum";
+            this.IndexNum.ReadOnly = true;
+            this.IndexNum.Width = 30;
+            // 
+            // FileName
+            // 
+            this.FileName.HeaderText = "ファイル名";
+            this.FileName.Name = "FileName";
+            this.FileName.ReadOnly = true;
+            this.FileName.Width = 150;
+            // 
+            // FilePath
+            // 
+            this.FilePath.HeaderText = "ファイルパス";
+            this.FilePath.Name = "FilePath";
+            this.FilePath.ReadOnly = true;
+            this.FilePath.Width = 350;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("MS UI Gothic", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label1.Location = new System.Drawing.Point(25, 13);
+            this.label1.Location = new System.Drawing.Point(20, 33);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(363, 28);
             this.label1.TabIndex = 1;
@@ -164,27 +192,47 @@
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
-            // IndexNum
+            // menuStrip1
             // 
-            this.IndexNum.HeaderText = "№";
-            this.IndexNum.MinimumWidth = 30;
-            this.IndexNum.Name = "IndexNum";
-            this.IndexNum.ReadOnly = true;
-            this.IndexNum.Width = 30;
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ファイルToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(800, 28);
+            this.menuStrip1.TabIndex = 4;
+            this.menuStrip1.Text = "menuStrip1";
             // 
-            // FileName
+            // ファイルToolStripMenuItem
             // 
-            this.FileName.HeaderText = "ファイル名";
-            this.FileName.Name = "FileName";
-            this.FileName.ReadOnly = true;
-            this.FileName.Width = 150;
+            this.ファイルToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.設定ファイルToolStripMenuItem});
+            this.ファイルToolStripMenuItem.Name = "ファイルToolStripMenuItem";
+            this.ファイルToolStripMenuItem.Size = new System.Drawing.Size(63, 24);
+            this.ファイルToolStripMenuItem.Text = "ファイル";
             // 
-            // FilePath
+            // 設定ファイルToolStripMenuItem
             // 
-            this.FilePath.HeaderText = "ファイルパス";
-            this.FilePath.Name = "FilePath";
-            this.FilePath.ReadOnly = true;
-            this.FilePath.Width = 350;
+            this.設定ファイルToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.設定ファイル読み込みToolStripMenuItem,
+            this.設定ファイル書き出しToolStripMenuItem});
+            this.設定ファイルToolStripMenuItem.Name = "設定ファイルToolStripMenuItem";
+            this.設定ファイルToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.設定ファイルToolStripMenuItem.Text = "結合設定";
+            // 
+            // 設定ファイル読み込みToolStripMenuItem
+            // 
+            this.設定ファイル読み込みToolStripMenuItem.Name = "設定ファイル読み込みToolStripMenuItem";
+            this.設定ファイル読み込みToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.設定ファイル読み込みToolStripMenuItem.Text = "結合設定読み込み";
+            this.設定ファイル読み込みToolStripMenuItem.Click += new System.EventHandler(this.confReadToolStripMenuItem_Click);
+            // 
+            // 設定ファイル書き出しToolStripMenuItem
+            // 
+            this.設定ファイル書き出しToolStripMenuItem.Name = "設定ファイル書き出しToolStripMenuItem";
+            this.設定ファイル書き出しToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.設定ファイル書き出しToolStripMenuItem.Text = "結合設定書き出し";
+            this.設定ファイル書き出しToolStripMenuItem.Click += new System.EventHandler(this.confWriteToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -203,10 +251,14 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "PDFmerger";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -228,6 +280,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn IndexNum;
         private System.Windows.Forms.DataGridViewTextBoxColumn FileName;
         private System.Windows.Forms.DataGridViewTextBoxColumn FilePath;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem ファイルToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 設定ファイルToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 設定ファイル読み込みToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 設定ファイル書き出しToolStripMenuItem;
     }
 }
 
