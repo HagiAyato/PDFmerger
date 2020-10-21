@@ -70,5 +70,16 @@ namespace PDFmerger
             // キャンセル時・例外時など
             return false;
         }
+
+        /// <summary>
+        /// PDF結合処理
+        /// </summary>
+        /// <param name="selectedPath"></param>
+        /// <param name="v"></param>
+        /// <returns></returns>
+        internal static bool pdfMerge(string selectedPath, string[] v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

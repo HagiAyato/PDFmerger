@@ -85,6 +85,24 @@ namespace PDFmerger
         private void button4_Click(object sender, EventArgs e)
         {
             button4.Enabled = false;
+            string selectedPath = textBox1.Text;
+            if (selectedPath == "")
+            {
+                // 結合後ファイル未決定の場合
+                if (!UIpg.writeFileSelect(textBox1.Text, "PDFファイル(*.pdf)|*.pdf", ref selectedPath))
+                {
+                    button4.Enabled = true;
+                    return;
+                }
+            }
+            // 現在の登録中ファイル一覧を作成
+            List<string> files = new List<string>();
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                files.Add((string)row.Cells[2].Value);
+            }
+            // 結合実行
+            IOpg.pdfMerge(selectedPath, files.ToArray());
             button4.Enabled = true;
         }
 
