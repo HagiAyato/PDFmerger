@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PdfSharp.Pdf;
+using PdfSharp.Pdf.IO;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -77,9 +79,36 @@ namespace PDFmerger
         /// <param name="selectedPath"></param>
         /// <param name="v"></param>
         /// <returns></returns>
-        internal static bool pdfMerge(string selectedPath, string[] v)
+        internal static bool pdfMerge(string selectedPath, string[] files)
         {
-            throw new NotImplementedException();
+            try
+            {
+                // PDFオブジェクト作成
+                using (PdfDocument document = new PdfDocument())
+                {
+                    // ファイル全件ループ
+                    foreach (string file in files)
+                    {
+                        using (PdfDocument inputDocument = PdfReader.Open(file, PdfDocumentOpenMode.Import))
+                        {
+                            // 頁全件ループ
+                            foreach (PdfPage page in inputDocument.Pages)
+                            {
+                                // PDF頁を追加
+                                document.AddPage(page);
+                            }
+                        }
+                    }
+                    // PDF保存
+                    document.Save(selectedPath);
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "例外発生");
+            }
+            return false;
         }
     }
 }

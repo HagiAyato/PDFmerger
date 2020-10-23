@@ -85,11 +85,26 @@ namespace PDFmerger
         private void button4_Click(object sender, EventArgs e)
         {
             button4.Enabled = false;
+            // DataGridViewが0件なら、出力をしない
+            if (dataGridView1.Rows.Count <= 0)
+            {
+                button4.Enabled = true;
+                return;
+            }
             string selectedPath = textBox1.Text;
             if (selectedPath == "")
             {
                 // 結合後ファイル未決定の場合
                 if (!UIpg.writeFileSelect(textBox1.Text, "PDFファイル(*.pdf)|*.pdf", ref selectedPath))
+                {
+                    button4.Enabled = true;
+                    return;
+                }
+            }
+            else if (File.Exists(selectedPath))
+            {
+                // 同名ファイル有、かつ上書き不可の場合
+                if (MessageBox.Show(selectedPath + "\nは既にあります。\n上書きしますか？", "上書き確認", MessageBoxButtons.OKCancel) == DialogResult.No)
                 {
                     button4.Enabled = true;
                     return;
@@ -102,7 +117,7 @@ namespace PDFmerger
                 files.Add((string)row.Cells[2].Value);
             }
             // 結合実行
-            IOpg.pdfMerge(selectedPath, files.ToArray());
+            MessageBox.Show(IOpg.pdfMerge(selectedPath, files.ToArray()) ? "結合成功" : "結合失敗");
             button4.Enabled = true;
         }
 
