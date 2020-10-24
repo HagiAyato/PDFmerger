@@ -163,6 +163,12 @@ namespace PDFmerger
         private void button5_Click(object sender, EventArgs e)
         {
             button5.Enabled = false;
+            // DataGridViewが0～1件なら、並べ替えをしない
+            if (dataGridView1.Rows.Count <= 1)
+            {
+                button5.Enabled = true;
+                return;
+            }
             List<DataGridViewRow> buffer = new List<DataGridViewRow>();
             // バッファに選択行を入れる + 一度削除
             foreach (DataGridViewRow row in dataGridView1.SelectedRows)
@@ -193,25 +199,25 @@ namespace PDFmerger
             button6.Enabled = false;
             if (0 < dataGridView1.Rows.Count)
             {
-                // 挿入index決定
-                int insIndexWk = dataGridView1.SelectedRows[0].Index - 1;
-                // ただし挿入indexは0未満にしない
-                int insIndex = 0 < insIndexWk ? insIndexWk : 0;
-                List<DataGridViewRow> buffer = new List<DataGridViewRow>();
-                // バッファに選択行を入れる + 一度削除
-                foreach (DataGridViewRow row in dataGridView1.SelectedRows)
-                {
-                    buffer.Add(row);
-                    dataGridView1.Rows.Remove(row);
-                }
-                // バッファは行番号昇順に並べなおす
-                // SelectedRowsで並び順が行順と一致しないため
-                buffer.Sort((a, b) => (int)(a.Cells[0].Value) - (int)(b.Cells[0].Value));
-                // バッファのデータを挿入していく
-                for (int i = 0; i < buffer.Count; i++)
-                {
-                    dataGridView1.Rows.Insert(insIndex + i, buffer[i]);
-                }
+                //// 挿入index決定
+                //int insIndexWk = dataGridView1.SelectedRows[0].Index - 1;
+                //// ただし挿入indexは0未満にしない
+                //int insIndex = 0 < insIndexWk ? insIndexWk : 0;
+                //List<DataGridViewRow> buffer = new List<DataGridViewRow>();
+                //// バッファに選択行を入れる + 一度削除
+                //foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+                //{
+                //    buffer.Add(row);
+                //    dataGridView1.Rows.Remove(row);
+                //}
+                //// バッファは行番号昇順に並べなおす
+                //// SelectedRowsで並び順が行順と一致しないため
+                //buffer.Sort((a, b) => (int)(a.Cells[0].Value) - (int)(b.Cells[0].Value));
+                //// バッファのデータを挿入していく
+                //for (int i = 0; i < buffer.Count; i++)
+                //{
+                //    dataGridView1.Rows.Insert(insIndex + i, buffer[i]);
+                //}
                 // IndexNum再採番
                 redimIndexNum();
             }
@@ -239,6 +245,12 @@ namespace PDFmerger
         private void button8_Click(object sender, EventArgs e)
         {
             button8.Enabled = false;
+            // DataGridViewが0～1件なら、並べ替えをしない
+            if (dataGridView1.Rows.Count <= 1)
+            {
+                button8.Enabled = true;
+                return;
+            }
             List<DataGridViewRow> buffer = new List<DataGridViewRow>();
             // バッファに選択行を入れる + 一度削除
             foreach (DataGridViewRow row in dataGridView1.SelectedRows)
@@ -289,10 +301,18 @@ namespace PDFmerger
             // 一度datagridviewは削除
             dataGridView1.Rows.Clear();
             // datagridviewにデータ追加
-            foreach (string readPath in readPaths)
+            for(int i = 0; i < readPaths.Length; i++)
             {
+                string path = readPaths[i];
+                // 出力パス到達時
+                if(path == "[OUTPUT]")
+                {
+                    // 一つ下の行のデータを出力先として設定
+                    textBox1.Text = readPaths[i + 1];
+                    break;
+                }
                 // データ追加時、IndexNumは0を仮置き
-                dataGridView1.Rows.Add(0, Path.GetFileName(readPath), readPath);
+                dataGridView1.Rows.Add(0, Path.GetFileName(path), path);
             }
             // IndexNum再採番
             redimIndexNum();
@@ -313,6 +333,9 @@ namespace PDFmerger
             {
                 files.Add((string)row.Cells[2].Value);
             }
+            // 出力ファイル情報追加
+            files.Add("[OUTPUT]");
+            files.Add(textBox1.Text);
             // 保存処理
             IOpg.writeDat(selectedPath, files.ToArray());
         }
