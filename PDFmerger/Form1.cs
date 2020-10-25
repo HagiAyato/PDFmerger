@@ -163,8 +163,10 @@ namespace PDFmerger
         private void button5_Click(object sender, EventArgs e)
         {
             button5.Enabled = false;
-            // DataGridViewが0～1件なら、並べ替えをしない
-            if (dataGridView1.Rows.Count <= 1)
+            // DataGridView,選択行が0～1件なら、並べ替えをしない
+            // 全行選択なら、並べ替えをしない
+            if ((dataGridView1.Rows.Count <= 1 && dataGridView1.SelectedRows.Count <= 1) ||
+                (dataGridView1.Rows.Count == dataGridView1.SelectedRows.Count))
             {
                 button5.Enabled = true;
                 return;
@@ -186,6 +188,9 @@ namespace PDFmerger
             }
             // IndexNum再採番
             redimIndexNum();
+            // 再選択
+            dataGridView1.ClearSelection();
+            dataGridView1.Rows[0].Selected = true;
             button5.Enabled = true;
         }
 
@@ -197,29 +202,40 @@ namespace PDFmerger
         private void button6_Click(object sender, EventArgs e)
         {
             button6.Enabled = false;
-            // DataGridViewが0～1件なら、並べ替えをしない
-            if (dataGridView1.Rows.Count <= 1)
+            // DataGridView,選択行が0～1件なら、並べ替えをしない
+            // 全行選択なら、並べ替えをしない
+            if ((dataGridView1.Rows.Count <= 1 && dataGridView1.SelectedRows.Count <= 1) ||
+                (dataGridView1.Rows.Count == dataGridView1.SelectedRows.Count))
             {
                 button6.Enabled = true;
                 return;
             }
-            //List<DataGridViewRow> buffer = new List<DataGridViewRow>();
-            //// バッファに選択行を入れる + 一度削除
-            //foreach (DataGridViewRow row in dataGridView1.SelectedRows)
-            //{
-            //    buffer.Add(row);
-            //    dataGridView1.Rows.Remove(row);
-            //}
-            //// バッファは行番号昇順に並べなおす
-            //// SelectedRowsで並び順が行順と一致しないため
-            //buffer.Sort((a, b) => (int)(a.Cells[0].Value) - (int)(b.Cells[0].Value));
-            //// バッファのデータを挿入していく
-            //for (int i = 0; i < buffer.Count; i++)
-            //{
-            //    dataGridView1.Rows.Insert(i, buffer[i]);
-            //}
+            List<DataGridViewRow> buffer = new List<DataGridViewRow>();
+            // バッファに選択行を入れる + 一度削除
+            foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+            {
+                buffer.Add(row);
+                dataGridView1.Rows.Remove(row);
+            }
+            // バッファは行番号昇順に並べなおす
+            // SelectedRowsで並び順が行順と一致しないため
+            buffer.Sort((a, b) => (int)(a.Cells[0].Value) - (int)(b.Cells[0].Value));
+            // バッファ1番目のindex取得
+            int bufTopIdx = (int)buffer[0].Cells[0].Value;
+            // 上記index-1でDataGridViewを検索
+            int searchResult = searchIdxDGV(0, bufTopIdx - 1, dataGridView1.Rows.Count);
+            // 挿入pos決定(0未満にならないよう対策)
+            int insPos = Math.Max(0, searchResult != int.MinValue ? searchResult : 0);
+            // バッファのデータを挿入していく
+            for (int i = 0; i < buffer.Count; i++)
+            {
+                dataGridView1.Rows.Insert(i + insPos, buffer[i]);
+            }
             // IndexNum再採番
             redimIndexNum();
+            // 再選択
+            dataGridView1.ClearSelection();
+            dataGridView1.Rows[insPos].Selected = true;
             button6.Enabled = true;
         }
 
@@ -231,30 +247,40 @@ namespace PDFmerger
         private void button7_Click(object sender, EventArgs e)
         {
             button7.Enabled = false;
-            // DataGridViewが0～1件なら、並べ替えをしない
-            if (dataGridView1.Rows.Count <= 1)
+            // DataGridView,選択行が0～1件なら、並べ替えをしない
+            // 全行選択なら、並べ替えをしない
+            if ((dataGridView1.Rows.Count <= 1 && dataGridView1.SelectedRows.Count <= 1) ||
+                (dataGridView1.Rows.Count == dataGridView1.SelectedRows.Count))
             {
                 button7.Enabled = true;
                 return;
             }
-            //List<DataGridViewRow> buffer = new List<DataGridViewRow>();
-            //// バッファに選択行を入れる + 一度削除
-            //foreach (DataGridViewRow row in dataGridView1.SelectedRows)
-            //{
-            //    buffer.Add(row);
-            //    dataGridView1.Rows.Remove(row);
-            //}
-            //// バッファは行番号昇順に並べなおす
-            //// SelectedRowsで並び順が行順と一致しないため
-            //buffer.Sort((a, b) => (int)(a.Cells[0].Value) - (int)(b.Cells[0].Value));
-            //// バッファのデータを挿入していく
-            //int rowcount = dataGridView1.RowCount;
-            //for (int i = 0; i < buffer.Count; i++)
-            //{
-            //    dataGridView1.Rows.Add(buffer[i]);
-            //}
+            List<DataGridViewRow> buffer = new List<DataGridViewRow>();
+            // バッファに選択行を入れる + 一度削除
+            foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+            {
+                buffer.Add(row);
+                dataGridView1.Rows.Remove(row);
+            }
+            // バッファは行番号昇順に並べなおす
+            // SelectedRowsで並び順が行順と一致しないため
+            buffer.Sort((a, b) => (int)(a.Cells[0].Value) - (int)(b.Cells[0].Value));
+            // バッファ最終番目のindex取得
+            int bufTopIdx = (int)buffer[buffer.Count - 1].Cells[0].Value;
+            // 上記index+1でDataGridViewを検索
+            int searchResult = searchIdxDGV(0, bufTopIdx + 1, dataGridView1.Rows.Count);
+            // 挿入pos決定(dataGridView1最大値以上にならないよう対策)
+            int insPos = Math.Min(dataGridView1.Rows.Count, searchResult != int.MinValue ? searchResult + 1 : dataGridView1.Rows.Count);
+            // バッファのデータを挿入していく
+            for (int i = 0; i < buffer.Count; i++)
+            {
+                dataGridView1.Rows.Insert(i + insPos, buffer[i]);
+            }
             // IndexNum再採番
             redimIndexNum();
+            // 再選択
+            dataGridView1.ClearSelection();
+            dataGridView1.Rows[insPos + buffer.Count - 1].Selected = true;
             button7.Enabled = true;
         }
 
@@ -266,8 +292,10 @@ namespace PDFmerger
         private void button8_Click(object sender, EventArgs e)
         {
             button8.Enabled = false;
-            // DataGridViewが0～1件なら、並べ替えをしない
-            if (dataGridView1.Rows.Count <= 1)
+            // DataGridView,選択行が0～1件なら、並べ替えをしない
+            // 全行選択なら、並べ替えをしない
+            if ((dataGridView1.Rows.Count <= 1 && dataGridView1.SelectedRows.Count <= 1) ||
+                (dataGridView1.Rows.Count == dataGridView1.SelectedRows.Count))
             {
                 button8.Enabled = true;
                 return;
@@ -290,6 +318,9 @@ namespace PDFmerger
             }
             // IndexNum再採番
             redimIndexNum();
+            // 再選択
+            dataGridView1.ClearSelection();
+            dataGridView1.Rows[dataGridView1.Rows.Count - 1].Selected = true;
             button8.Enabled = true;
         }
 
@@ -322,11 +353,11 @@ namespace PDFmerger
             // 一度datagridviewは削除
             dataGridView1.Rows.Clear();
             // datagridviewにデータ追加
-            for(int i = 0; i < readPaths.Length; i++)
+            for (int i = 0; i < readPaths.Length; i++)
             {
                 string path = readPaths[i];
                 // 出力パス到達時
-                if(path == "[OUTPUT]")
+                if (path == "[OUTPUT]")
                 {
                     // 一つ下の行のデータを出力先として設定
                     textBox1.Text = readPaths[i + 1];
@@ -370,6 +401,38 @@ namespace PDFmerger
         {
             // IndexNum再採番
             redimIndexNum();
+        }
+
+        /// <summary>
+        /// dataGridView1のindex検索
+        /// </summary>
+        /// <param name="left">検索範囲左端</param>
+        /// <param name="target">検索するindex</param>
+        /// <param name="right">検索範囲右端</param>
+        /// <returns>見つかった場合：要素のindex/見つからなかった場合：-1</returns>
+        private int searchIdxDGV(int left, int target, int right)
+        {
+            // 異常処理
+            if (right <= left) return int.MinValue;
+            // 中央要素番号
+            int mid = (left + right) / 2;
+            // 中央要素で検索に該当の場合
+            if ((int)dataGridView1.Rows[mid].Cells[0].Value == target)
+            {
+                return mid;
+            }
+            // 中央要素が検索値未満の場合
+            if ((int)(dataGridView1.Rows[mid].Cells[0].Value) < target)
+            {
+                return searchIdxDGV(mid + 1, target, right);
+            }
+            // 中央要素が検索値より大きい場合
+            if (target < (int)(dataGridView1.Rows[mid].Cells[0].Value))
+            {
+                return searchIdxDGV(left, target, mid);
+            }
+            // 一応残すだけ
+            return 0;
         }
     }
 }
