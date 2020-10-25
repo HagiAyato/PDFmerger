@@ -197,30 +197,29 @@ namespace PDFmerger
         private void button6_Click(object sender, EventArgs e)
         {
             button6.Enabled = false;
-            if (0 < dataGridView1.Rows.Count)
+            // DataGridViewが0～1件なら、並べ替えをしない
+            if (dataGridView1.Rows.Count <= 1)
             {
-                //// 挿入index決定
-                //int insIndexWk = dataGridView1.SelectedRows[0].Index - 1;
-                //// ただし挿入indexは0未満にしない
-                //int insIndex = 0 < insIndexWk ? insIndexWk : 0;
-                //List<DataGridViewRow> buffer = new List<DataGridViewRow>();
-                //// バッファに選択行を入れる + 一度削除
-                //foreach (DataGridViewRow row in dataGridView1.SelectedRows)
-                //{
-                //    buffer.Add(row);
-                //    dataGridView1.Rows.Remove(row);
-                //}
-                //// バッファは行番号昇順に並べなおす
-                //// SelectedRowsで並び順が行順と一致しないため
-                //buffer.Sort((a, b) => (int)(a.Cells[0].Value) - (int)(b.Cells[0].Value));
-                //// バッファのデータを挿入していく
-                //for (int i = 0; i < buffer.Count; i++)
-                //{
-                //    dataGridView1.Rows.Insert(insIndex + i, buffer[i]);
-                //}
-                // IndexNum再採番
-                redimIndexNum();
+                button6.Enabled = true;
+                return;
             }
+            //List<DataGridViewRow> buffer = new List<DataGridViewRow>();
+            //// バッファに選択行を入れる + 一度削除
+            //foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+            //{
+            //    buffer.Add(row);
+            //    dataGridView1.Rows.Remove(row);
+            //}
+            //// バッファは行番号昇順に並べなおす
+            //// SelectedRowsで並び順が行順と一致しないため
+            //buffer.Sort((a, b) => (int)(a.Cells[0].Value) - (int)(b.Cells[0].Value));
+            //// バッファのデータを挿入していく
+            //for (int i = 0; i < buffer.Count; i++)
+            //{
+            //    dataGridView1.Rows.Insert(i, buffer[i]);
+            //}
+            // IndexNum再採番
+            redimIndexNum();
             button6.Enabled = true;
         }
 
@@ -232,6 +231,28 @@ namespace PDFmerger
         private void button7_Click(object sender, EventArgs e)
         {
             button7.Enabled = false;
+            // DataGridViewが0～1件なら、並べ替えをしない
+            if (dataGridView1.Rows.Count <= 1)
+            {
+                button7.Enabled = true;
+                return;
+            }
+            //List<DataGridViewRow> buffer = new List<DataGridViewRow>();
+            //// バッファに選択行を入れる + 一度削除
+            //foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+            //{
+            //    buffer.Add(row);
+            //    dataGridView1.Rows.Remove(row);
+            //}
+            //// バッファは行番号昇順に並べなおす
+            //// SelectedRowsで並び順が行順と一致しないため
+            //buffer.Sort((a, b) => (int)(a.Cells[0].Value) - (int)(b.Cells[0].Value));
+            //// バッファのデータを挿入していく
+            //int rowcount = dataGridView1.RowCount;
+            //for (int i = 0; i < buffer.Count; i++)
+            //{
+            //    dataGridView1.Rows.Add(buffer[i]);
+            //}
             // IndexNum再採番
             redimIndexNum();
             button7.Enabled = true;
