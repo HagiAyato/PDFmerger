@@ -7,3 +7,5 @@ Creator of PDFsharp is empira Software GmbH<br/>
 Kirchstrase 19 53840 Troisdorf Germany<br/>
 www.empira.de<br/>
 PDFsharp (R) is a registered trademark of empira Software GmbH<br/>
+Released under the MIT license<br/>
+http://www.pdfsharp.net/PDFsharp_License.ashx?AspxAutoDetectCookieSupport=1
