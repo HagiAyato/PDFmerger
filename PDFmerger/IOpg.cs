@@ -17,7 +17,7 @@ namespace PDFmerger
         /// </summary>
         /// <param name="filePath">結合設定のパス</param>
         /// <param name="dataPaths">読み込んだ結果=結合対象PDF</param>
-        /// <returns></returns>
+        /// <returns>成功:True/失敗:False</returns>
         internal static bool readDat(string filePath, ref string[] dataPaths)
         {
             List<string> lines = new List<string>();
@@ -47,7 +47,7 @@ namespace PDFmerger
         /// </summary>
         /// <param name="filePath">結合設定のパス</param>
         /// <param name="dataPaths">書き込むデータ=結合対象PDF</param>
-        /// <returns></returns>
+        /// <returns>成功:True/失敗:False</returns>
         internal static bool writeDat(string filePath, string[] dataPaths)
         {
             List<string> lines = new List<string>();
@@ -76,9 +76,9 @@ namespace PDFmerger
         /// <summary>
         /// PDF結合処理
         /// </summary>
-        /// <param name="selectedPath"></param>
-        /// <param name="v"></param>
-        /// <returns></returns>
+        /// <param name="selectedPath">結合後保存するパス</param>
+        /// <param name="files">結合対象のPDFファイルパス</param>
+        /// <returns>成功:True/失敗:False</returns>
         internal static bool pdfMerge(string selectedPath, string[] files)
         {
             try
@@ -97,10 +97,14 @@ namespace PDFmerger
                                 // PDF頁を追加
                                 document.AddPage(page);
                             }
+                            // PDFを閉じる
+                            inputDocument.Close();
                         }
                     }
                     // PDF保存
                     document.Save(selectedPath);
+                    // PDFを閉じる
+                    document.Close();
                 }
                 return true;
             }
