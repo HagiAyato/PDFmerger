@@ -8,6 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+/*
+ * PdfSharpライセンス表記
+ * Creator of PDFsharp is empira Software GmbH
+ * Kirchstrase 19 53840 Troisdorf Germany
+ * http://www.empira.de
+ * PDFsharp (R) is a registered trademark of empira Software GmbH
+ * Released under the MIT license
+ * http://www.pdfsharp.net/PDFsharp_License.ashx?AspxAutoDetectCookieSupport=1
+ */
+
 namespace PDFmerger
 {
     class IOpg
