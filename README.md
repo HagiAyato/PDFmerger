@@ -2,7 +2,8 @@
 PDFファイルの結合アプリケーションです。
 <h2>インストール方法</h2>
 <ol type="1">
-  <li>[リリースページ](https://github.com/HagiAyato/PDFmerger/releases/)から"Release_PDFmerger.zip"をダウンロードする</li>
+  <li>[リリースページ](https://github.com/HagiAyato/PDFmerger/releases/)
+  から"Release_PDFmerger.zip"をダウンロードする</li>
   <li>ダウンロードした"Release_PDFmerger.zip"を、任意のフォルダに解凍する</li>
 </ol>
 <h4>必須環境</h4>
@@ -70,7 +71,7 @@ haworks.eng☆gmail.com※☆→@
 <h4>ライセンス表記(MITライセンス)</h4>
 Creator of PDFsharp is empira Software GmbH<br />
 Kirchstrase 19 53840 Troisdorf Germany<br />
-[www.empira.de](www.empira.de)
+www.empira.de<br />
 PDFsharp (R) is a registered trademark of empira Software GmbH<br />
 Released under the MIT license<br />
-[http://www.pdfsharp.net/PDFsharp_License.ashx](http://www.pdfsharp.net/PDFsharp_License.ashx)
+http://www.pdfsharp.net/PDFsharp_License.ashx
