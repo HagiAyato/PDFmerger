@@ -47,6 +47,10 @@
             this.設定ファイルToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.設定ファイル読み込みToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.設定ファイル書き出しToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ヘルプToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.バージョン情報ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -62,7 +66,7 @@
             this.IndexNum,
             this.FileName,
             this.FilePath});
-            this.dataGridView1.Location = new System.Drawing.Point(25, 64);
+            this.dataGridView1.Location = new System.Drawing.Point(25, 93);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -97,16 +101,16 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("MS UI Gothic", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label1.Font = new System.Drawing.Font("MS UI Gothic", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.label1.Location = new System.Drawing.Point(20, 33);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(363, 28);
+            this.label1.Size = new System.Drawing.Size(384, 28);
             this.label1.TabIndex = 1;
             this.label1.Text = "PDFmerger -PDF 結合ツール-";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(673, 64);
+            this.button1.Location = new System.Drawing.Point(673, 93);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(115, 42);
             this.button1.TabIndex = 2;
@@ -116,7 +120,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(673, 273);
+            this.button2.Location = new System.Drawing.Point(673, 302);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(115, 42);
             this.button2.TabIndex = 2;
@@ -126,25 +130,25 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(25, 342);
+            this.textBox1.Location = new System.Drawing.Point(25, 378);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(630, 22);
             this.textBox1.TabIndex = 3;
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(673, 342);
+            this.button3.Location = new System.Drawing.Point(661, 378);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(115, 30);
+            this.button3.Size = new System.Drawing.Size(139, 30);
             this.button3.TabIndex = 2;
-            this.button3.Text = "出力ファイル名";
+            this.button3.Text = "ファイルパス変更";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button4
             // 
             this.button4.Font = new System.Drawing.Font("MS UI Gothic", 12F);
-            this.button4.Location = new System.Drawing.Point(570, 382);
+            this.button4.Location = new System.Drawing.Point(570, 418);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(218, 56);
             this.button4.TabIndex = 2;
@@ -154,7 +158,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(673, 121);
+            this.button5.Location = new System.Drawing.Point(673, 150);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(115, 30);
             this.button5.TabIndex = 2;
@@ -164,7 +168,7 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(673, 157);
+            this.button6.Location = new System.Drawing.Point(673, 186);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(115, 30);
             this.button6.TabIndex = 2;
@@ -174,7 +178,7 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(673, 193);
+            this.button7.Location = new System.Drawing.Point(673, 222);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(115, 30);
             this.button7.TabIndex = 2;
@@ -184,7 +188,7 @@
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(673, 229);
+            this.button8.Location = new System.Drawing.Point(673, 258);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(115, 30);
             this.button8.TabIndex = 2;
@@ -196,10 +200,11 @@
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ファイルToolStripMenuItem});
+            this.ファイルToolStripMenuItem,
+            this.ヘルプToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(808, 28);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -217,29 +222,66 @@
             this.設定ファイル読み込みToolStripMenuItem,
             this.設定ファイル書き出しToolStripMenuItem});
             this.設定ファイルToolStripMenuItem.Name = "設定ファイルToolStripMenuItem";
-            this.設定ファイルToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.設定ファイルToolStripMenuItem.Size = new System.Drawing.Size(144, 26);
             this.設定ファイルToolStripMenuItem.Text = "結合設定";
             // 
             // 設定ファイル読み込みToolStripMenuItem
             // 
             this.設定ファイル読み込みToolStripMenuItem.Name = "設定ファイル読み込みToolStripMenuItem";
-            this.設定ファイル読み込みToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.設定ファイル読み込みToolStripMenuItem.Size = new System.Drawing.Size(200, 26);
             this.設定ファイル読み込みToolStripMenuItem.Text = "結合設定読み込み";
             this.設定ファイル読み込みToolStripMenuItem.Click += new System.EventHandler(this.confReadToolStripMenuItem_Click);
             // 
             // 設定ファイル書き出しToolStripMenuItem
             // 
             this.設定ファイル書き出しToolStripMenuItem.Name = "設定ファイル書き出しToolStripMenuItem";
-            this.設定ファイル書き出しToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.設定ファイル書き出しToolStripMenuItem.Size = new System.Drawing.Size(200, 26);
             this.設定ファイル書き出しToolStripMenuItem.Text = "結合設定書き出し";
             this.設定ファイル書き出しToolStripMenuItem.Click += new System.EventHandler(this.confWriteToolStripMenuItem_Click);
+            // 
+            // ヘルプToolStripMenuItem
+            // 
+            this.ヘルプToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.バージョン情報ToolStripMenuItem});
+            this.ヘルプToolStripMenuItem.Name = "ヘルプToolStripMenuItem";
+            this.ヘルプToolStripMenuItem.Size = new System.Drawing.Size(56, 24);
+            this.ヘルプToolStripMenuItem.Text = "ヘルプ";
+            // 
+            // バージョン情報ToolStripMenuItem
+            // 
+            this.バージョン情報ToolStripMenuItem.Name = "バージョン情報ToolStripMenuItem";
+            this.バージョン情報ToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.バージョン情報ToolStripMenuItem.Text = "バージョン情報";
+            this.バージョン情報ToolStripMenuItem.Click += new System.EventHandler(this.versionInfo_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("MS UI Gothic", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label2.Location = new System.Drawing.Point(25, 357);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(140, 19);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "出力ファイルパス";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("MS UI Gothic", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label3.Location = new System.Drawing.Point(21, 71);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(128, 19);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "結合PDFリスト";
             // 
             // Form1
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(808, 487);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
@@ -285,6 +327,10 @@
         private System.Windows.Forms.ToolStripMenuItem 設定ファイルToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 設定ファイル読み込みToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 設定ファイル書き出しToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ヘルプToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem バージョン情報ToolStripMenuItem;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
     }
 }
 

@@ -434,5 +434,17 @@ namespace PDFmerger
             // 一応残すだけ
             return 0;
         }
+
+        /// <summary>
+        /// バージョン情報画面処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void versionInfo_Click(object sender, EventArgs e)
+        {
+            Version_dialog dailog = new Version_dialog();
+            dailog.ShowDialog(this);
+            dailog.Dispose();
+        }
     }
 }

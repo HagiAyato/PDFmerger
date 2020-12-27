@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Resources;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -6,11 +7,11 @@ using System.Runtime.InteropServices;
 // アセンブリに関連付けられている情報を変更するには、
 // これらの属性値を変更してください。
 [assembly: AssemblyTitle("PDFmerger")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("PDFファイルの結合アプリケーションです。")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("HA Works")]
 [assembly: AssemblyProduct("PDFmerger")]
-[assembly: AssemblyCopyright("Copyright ©  2020")]
+[assembly: AssemblyCopyright("Copyright © 2020 HA Works")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +33,7 @@ using System.Runtime.InteropServices;
 // すべての値を指定するか、次を使用してビルド番号とリビジョン番号を既定に設定できます
 // 既定値にすることができます:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("0.1.0.0")]
+[assembly: AssemblyFileVersion("0.1.0.0")]
+[assembly: NeutralResourcesLanguage("ja-JP")]
+
