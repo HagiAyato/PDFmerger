@@ -78,6 +78,7 @@
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(630, 251);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_ColumnHeaderMouseClick);
             this.dataGridView1.Sorted += new System.EventHandler(this.dataGridView1_Sorted);
             this.dataGridView1.DragDrop += new System.Windows.Forms.DragEventHandler(this.dataGridView1_DragDrop);
             this.dataGridView1.DragEnter += new System.Windows.Forms.DragEventHandler(this.dataGridView1_DragEnter);
@@ -293,6 +294,7 @@
             this.Size.HeaderText = "ファイルサイズ[Byte]";
             this.Size.Name = "Size";
             this.Size.ReadOnly = true;
+            this.Size.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             this.Size.Width = 80;
             // 
             // FilePath

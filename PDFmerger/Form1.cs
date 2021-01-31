@@ -456,5 +456,28 @@ namespace PDFmerger
             FileInfo info = new FileInfo(path);
             dataGridView1.Rows.Add(0, info.Name, info.LastWriteTime, info.Length, FileUtils.ToReadableSize(info.Length), path);
         }
+
+        /// <summary>
+        /// 列ヘッダクリック時処理(カスタムソート用)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dataGridView1_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            switch (e.ColumnIndex)
+            {
+                case 4:
+                    // ファイルサイズ(文字)列
+                    // 現在の ファイルサイズ(文字)列の並びを取得
+                    SortOrder mode = dataGridView1.Columns[4].HeaderCell.SortGlyphDirection == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending;
+                    ListSortDirection direction = mode == SortOrder.Ascending ? ListSortDirection.Descending : ListSortDirection.Ascending;
+                    // ファイルサイズ(数値)列基準でソートを実施
+                    dataGridView1.Sort(dataGridView1.Columns[3], direction);
+                    dataGridView1.Columns[4].HeaderCell.SortGlyphDirection = mode;
+                    break;
+                default:
+                    return;
+            }
+        }
     }
 }
