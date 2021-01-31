@@ -291,7 +291,7 @@
             // 
             // Size
             // 
-            this.Size.HeaderText = "ファイルサイズ[Byte]";
+            this.Size.HeaderText = "ファイルサイズ";
             this.Size.Name = "Size";
             this.Size.ReadOnly = true;
             this.Size.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
