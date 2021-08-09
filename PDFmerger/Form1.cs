@@ -33,12 +33,12 @@ namespace PDFmerger
             button1.Enabled = false;
             string[] selectedPaths = new string[1];
             // ファイルを選択し、それをすべてDataGridViewに入れる
-            if (UIpg.openFileSelect(textBox1.Text, "PDFファイル(*.pdf)|*.pdf", ref selectedPaths))
+            if (UIpg.OpenFileSelect(textBox1.Text, "PDFファイル(*.pdf)|*.pdf", ref selectedPaths))
             {
                 foreach (string selectedPath in selectedPaths)
                 {
                     // データ追加時、IndexNumは0を仮置き
-                    dataGridView1.Rows.Add(0, Path.GetFileName(selectedPath), selectedPath);
+                    AddRow(selectedPath);
                 }
             }
             // IndexNum再採番
@@ -73,7 +73,7 @@ namespace PDFmerger
         {
             button3.Enabled = false;
             string selectedPath = textBox1.Text;
-            if (UIpg.writeFileSelect(textBox1.Text, "PDFファイル(*.pdf)|*.pdf", ref selectedPath)) textBox1.Text = selectedPath;
+            if (UIpg.WriteFileSelect(textBox1.Text, "PDFファイル(*.pdf)|*.pdf", ref selectedPath)) textBox1.Text = selectedPath;
             button3.Enabled = true;
         }
 
@@ -95,7 +95,7 @@ namespace PDFmerger
             if (selectedPath == "")
             {
                 // 結合後ファイル未決定の場合
-                if (!UIpg.writeFileSelect(textBox1.Text, "PDFファイル(*.pdf)|*.pdf", ref selectedPath))
+                if (!UIpg.WriteFileSelect(textBox1.Text, "PDFファイル(*.pdf)|*.pdf", ref selectedPath))
                 {
                     button4.Enabled = true;
                     return;
@@ -114,10 +114,10 @@ namespace PDFmerger
             List<string> files = new List<string>();
             foreach (DataGridViewRow row in dataGridView1.Rows)
             {
-                files.Add((string)row.Cells[2].Value);
+                files.Add((string)row.Cells[5].Value);
             }
             // 結合実行
-            MessageBox.Show(IOpg.pdfMerge(selectedPath, files.ToArray()) ? "結合成功" : "結合失敗");
+            MessageBox.Show(IOpg.PdfMerge(selectedPath, files.ToArray()) ? "結合成功" : "結合失敗");
             button4.Enabled = true;
         }
 
@@ -132,7 +132,7 @@ namespace PDFmerger
             foreach (string selectedPath in (string[])e.Data.GetData(DataFormats.FileDrop, false))
             {
                 if (Path.GetExtension(selectedPath) == ".pdf")
-                    dataGridView1.Rows.Add(Path.GetFileName(selectedPath), selectedPath);
+                    AddRow(selectedPath);
             }
         }
 
@@ -223,7 +223,7 @@ namespace PDFmerger
             // バッファ1番目のindex取得
             int bufTopIdx = (int)buffer[0].Cells[0].Value;
             // 上記index-1でDataGridViewを検索
-            int searchResult = searchIdxDGV(0, bufTopIdx - 1, dataGridView1.Rows.Count);
+            int searchResult = SearchIdxDGV(0, bufTopIdx - 1, dataGridView1.Rows.Count);
             // 挿入pos決定(0未満にならないよう対策)
             int insPos = Math.Max(0, searchResult != int.MinValue ? searchResult : 0);
             // バッファのデータを挿入していく
@@ -268,7 +268,7 @@ namespace PDFmerger
             // バッファ最終番目のindex取得
             int bufTopIdx = (int)buffer[buffer.Count - 1].Cells[0].Value;
             // 上記index+1でDataGridViewを検索
-            int searchResult = searchIdxDGV(0, bufTopIdx + 1, dataGridView1.Rows.Count);
+            int searchResult = SearchIdxDGV(0, bufTopIdx + 1, dataGridView1.Rows.Count);
             // 挿入pos決定(dataGridView1最大値以上にならないよう対策)
             int insPos = Math.Min(dataGridView1.Rows.Count, searchResult != int.MinValue ? searchResult + 1 : dataGridView1.Rows.Count);
             // バッファのデータを挿入していく
@@ -346,10 +346,10 @@ namespace PDFmerger
         {
             string selectedPath = "";
             // 読み込む結合設定を選択
-            if (!UIpg.openFileSelect(textBox1.Text, "結合設定ファイル(*.dat)|*.dat", ref selectedPath)) return;
+            if (!UIpg.OpenFileSelect(textBox1.Text, "結合設定ファイル(*.dat)|*.dat", ref selectedPath)) return;
             // 結合設定を読み込む
             string[] readPaths = new string[1];
-            if (!IOpg.readDat(selectedPath, ref readPaths)) return;
+            if (!IOpg.ReadDat(selectedPath, ref readPaths)) return;
             // 一度datagridviewは削除
             dataGridView1.Rows.Clear();
             // datagridviewにデータ追加
@@ -364,7 +364,7 @@ namespace PDFmerger
                     break;
                 }
                 // データ追加時、IndexNumは0を仮置き
-                dataGridView1.Rows.Add(0, Path.GetFileName(path), path);
+                AddRow(path);
             }
             // IndexNum再採番
             redimIndexNum();
@@ -378,18 +378,18 @@ namespace PDFmerger
         private void confWriteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string selectedPath = "";
-            if (!UIpg.writeFileSelect(textBox1.Text, "結合設定ファイル(*.dat)|*.dat", ref selectedPath)) return;
+            if (!UIpg.WriteFileSelect(textBox1.Text, "結合設定ファイル(*.dat)|*.dat", ref selectedPath)) return;
             // 現在の登録中ファイル一覧を作成
             List<string> files = new List<string>();
             foreach (DataGridViewRow row in dataGridView1.Rows)
             {
-                files.Add((string)row.Cells[2].Value);
+                files.Add((string)row.Cells[5].Value);
             }
             // 出力ファイル情報追加
             files.Add("[OUTPUT]");
             files.Add(textBox1.Text);
             // 保存処理
-            IOpg.writeDat(selectedPath, files.ToArray());
+            IOpg.WriteDat(selectedPath, files.ToArray());
         }
 
         /// <summary>
@@ -410,7 +410,7 @@ namespace PDFmerger
         /// <param name="target">検索するindex</param>
         /// <param name="right">検索範囲右端</param>
         /// <returns>見つかった場合：要素のindex/見つからなかった場合：-1</returns>
-        private int searchIdxDGV(int left, int target, int right)
+        private int SearchIdxDGV(int left, int target, int right)
         {
             // 異常処理
             if (right <= left) return int.MinValue;
@@ -424,12 +424,12 @@ namespace PDFmerger
             // 中央要素が検索値未満の場合
             if ((int)(dataGridView1.Rows[mid].Cells[0].Value) < target)
             {
-                return searchIdxDGV(mid + 1, target, right);
+                return SearchIdxDGV(mid + 1, target, right);
             }
             // 中央要素が検索値より大きい場合
             if (target < (int)(dataGridView1.Rows[mid].Cells[0].Value))
             {
-                return searchIdxDGV(left, target, mid);
+                return SearchIdxDGV(left, target, mid);
             }
             // 一応残すだけ
             return 0;
@@ -445,6 +445,42 @@ namespace PDFmerger
             Version_dialog dailog = new Version_dialog();
             dailog.ShowDialog(this);
             dailog.Dispose();
+        }
+
+        /// <summary>
+        /// 行追加関数
+        /// </summary>
+        /// <param name="path">追加したいファイルのフルパス</param>
+        private void AddRow(string path)
+        {
+            FileInfo info = new FileInfo(path);
+            dataGridView1.Rows.Add(0, info.Name, info.LastWriteTime, info.Length, FileUtils.ToReadableSize(info.Length), path);
+        }
+
+        /// <summary>
+        /// 列ヘッダクリック時処理(カスタムソート用)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dataGridView1_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            // クリックした列を判別
+            switch (e.ColumnIndex)
+            {
+                case 4:
+                    // ファイルサイズ(文字)列
+                    // 現在のファイルサイズ(文字)列の並びを取得
+                    SortOrder mode = dataGridView1.Columns[4].HeaderCell.SortGlyphDirection == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending;
+                    ListSortDirection direction = mode == SortOrder.Ascending ? ListSortDirection.Ascending : ListSortDirection.Descending;
+                    // ファイルサイズ(数値)列基準でソートを実施
+                    dataGridView1.Sort(dataGridView1.Columns[3], direction);
+                    dataGridView1.Columns[4].HeaderCell.SortGlyphDirection = mode;
+                    break;
+                default:
+                    // それ以外の列の場合は、ファイルサイズ(文字)列のソート順表記消去
+                    dataGridView1.Columns[4].HeaderCell.SortGlyphDirection = SortOrder.None;
+                    return;
+            }
         }
     }
 }

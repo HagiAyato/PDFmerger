@@ -16,7 +16,7 @@ namespace PDFmerger
         /// <param name="filter">フィルタ</param>
         /// <param name="selectedPaths">選択されたファイル名</param>
         /// <returns>true:選択OK false:キャンセル時・例外時など</returns>
-        internal static bool openFileSelect(string nowText, string filter, ref string[] selectedPaths)
+        internal static bool OpenFileSelect(string nowText, string filter, ref string[] selectedPaths)
         {
             OpenFileDialog dialog = new OpenFileDialog();
             // [ファイルの種類] ボックスに表示される選択肢を設定する
@@ -46,12 +46,12 @@ namespace PDFmerger
         /// <param name="filter">フィルタ</param>
         /// <param name="selectedPaths">選択されたファイル名</param>
         /// <returns>true:選択OK false:キャンセル時・例外時など</returns>
-        internal static bool openFileSelect(string nowText, string filter, ref string selectedPath)
+        internal static bool OpenFileSelect(string nowText, string filter, ref string selectedPath)
         {
             OpenFileDialog dialog = new OpenFileDialog();
             // [ファイルの種類] ボックスに表示される選択肢を設定する
             dialog.Filter = filter;
-            // 複数選択可能にする
+            // 複数選択可能にしない
             dialog.Multiselect = false;
             try
             {
@@ -76,7 +76,7 @@ namespace PDFmerger
         /// <param name="filter">フィルタ</param>
         /// <param name="selectedPath">選択されたファイル名</param>
         /// <returns>true:選択OK false:キャンセル時・例外時など</returns>
-        internal static bool writeFileSelect(string nowText, string filter, ref string selectedPath)
+        internal static bool WriteFileSelect(string nowText, string filter, ref string selectedPath)
         {
             SaveFileDialog dialog = new SaveFileDialog();
             // 拡張子を自動的に付加する

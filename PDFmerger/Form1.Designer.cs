@@ -29,9 +29,6 @@
         private void InitializeComponent()
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.IndexNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FilePath = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -51,6 +48,12 @@
             this.バージョン情報ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.IndexNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UpdateDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Size0 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Size = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FilePath = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -65,6 +68,9 @@
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.IndexNum,
             this.FileName,
+            this.UpdateDate,
+            this.Size0,
+            this.Size,
             this.FilePath});
             this.dataGridView1.Location = new System.Drawing.Point(25, 93);
             this.dataGridView1.Name = "dataGridView1";
@@ -72,31 +78,10 @@
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(630, 251);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_ColumnHeaderMouseClick);
             this.dataGridView1.Sorted += new System.EventHandler(this.dataGridView1_Sorted);
             this.dataGridView1.DragDrop += new System.Windows.Forms.DragEventHandler(this.dataGridView1_DragDrop);
             this.dataGridView1.DragEnter += new System.Windows.Forms.DragEventHandler(this.dataGridView1_DragEnter);
-            // 
-            // IndexNum
-            // 
-            this.IndexNum.HeaderText = "№";
-            this.IndexNum.MinimumWidth = 30;
-            this.IndexNum.Name = "IndexNum";
-            this.IndexNum.ReadOnly = true;
-            this.IndexNum.Width = 30;
-            // 
-            // FileName
-            // 
-            this.FileName.HeaderText = "ファイル名";
-            this.FileName.Name = "FileName";
-            this.FileName.ReadOnly = true;
-            this.FileName.Width = 150;
-            // 
-            // FilePath
-            // 
-            this.FilePath.HeaderText = "ファイルパス";
-            this.FilePath.Name = "FilePath";
-            this.FilePath.ReadOnly = true;
-            this.FilePath.Width = 350;
             // 
             // label1
             // 
@@ -250,7 +235,7 @@
             // バージョン情報ToolStripMenuItem
             // 
             this.バージョン情報ToolStripMenuItem.Name = "バージョン情報ToolStripMenuItem";
-            this.バージョン情報ToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.バージョン情報ToolStripMenuItem.Size = new System.Drawing.Size(168, 26);
             this.バージョン情報ToolStripMenuItem.Text = "バージョン情報";
             this.バージョン情報ToolStripMenuItem.Click += new System.EventHandler(this.versionInfo_Click);
             // 
@@ -273,6 +258,51 @@
             this.label3.Size = new System.Drawing.Size(128, 19);
             this.label3.TabIndex = 5;
             this.label3.Text = "結合PDFリスト";
+            // 
+            // IndexNum
+            // 
+            this.IndexNum.HeaderText = "№";
+            this.IndexNum.MinimumWidth = 30;
+            this.IndexNum.Name = "IndexNum";
+            this.IndexNum.ReadOnly = true;
+            this.IndexNum.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.IndexNum.Width = 30;
+            // 
+            // FileName
+            // 
+            this.FileName.HeaderText = "ファイル名";
+            this.FileName.Name = "FileName";
+            this.FileName.ReadOnly = true;
+            this.FileName.Width = 150;
+            // 
+            // UpdateDate
+            // 
+            this.UpdateDate.HeaderText = "更新日";
+            this.UpdateDate.Name = "UpdateDate";
+            this.UpdateDate.ReadOnly = true;
+            this.UpdateDate.Width = 120;
+            // 
+            // Size0
+            // 
+            this.Size0.HeaderText = "ファイルサイズ(数値)";
+            this.Size0.Name = "Size0";
+            this.Size0.ReadOnly = true;
+            this.Size0.Visible = false;
+            // 
+            // Size
+            // 
+            this.Size.HeaderText = "ファイルサイズ";
+            this.Size.Name = "Size";
+            this.Size.ReadOnly = true;
+            this.Size.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.Size.Width = 80;
+            // 
+            // FilePath
+            // 
+            this.FilePath.HeaderText = "ファイルパス";
+            this.FilePath.Name = "FilePath";
+            this.FilePath.ReadOnly = true;
+            this.FilePath.Width = 350;
             // 
             // Form1
             // 
@@ -319,9 +349,6 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndexNum;
-        private System.Windows.Forms.DataGridViewTextBoxColumn FileName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn FilePath;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem ファイルToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 設定ファイルToolStripMenuItem;
@@ -331,6 +358,12 @@
         private System.Windows.Forms.ToolStripMenuItem バージョン情報ToolStripMenuItem;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndexNum;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FileName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UpdateDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Size0;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Size;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FilePath;
     }
 }
 
