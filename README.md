@@ -68,10 +68,3 @@ Copyright (C) 2020 HA Works
 商用以外の利用は無制限・無料で可能です。<br />
 商用利用について、もしくは問題発生時などは下記アドレスにお問い合わせください。
 haworks.eng☆gmail.com※☆→@
-<h4>ライセンス表記(MITライセンス)</h4>
-Creator of PDFsharp is empira Software GmbH<br />
-Kirchstrase 19 53840 Troisdorf Germany<br />
-www.empira.de<br />
-PDFsharp (R) is a registered trademark of empira Software GmbH<br />
-Released under the MIT license<br />
-http://www.pdfsharp.net/PDFsharp_License.ashx
