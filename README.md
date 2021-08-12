@@ -2,7 +2,7 @@
 PDFファイルの結合アプリケーションです。
 <h2>インストール方法</h2>
 <ol type="1">
-  <li>[リリースページ](https://github.com/HagiAyato/PDFmerger/releases/)
+  <li><a href="https://github.com/HagiAyato/PDFmerger/releases/">リリースページ</a>
   から"Release_PDFmerger.zip"をダウンロードする</li>
   <li>ダウンロードした"Release_PDFmerger.zip"を、任意のフォルダに解凍する</li>
 </ol>
